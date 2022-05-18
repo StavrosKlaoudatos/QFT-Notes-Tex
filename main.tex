@@ -1,0 +1,348 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{subfiles}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{graphics}
+\usetikzlibrary{positioning}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{imakeidx}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{braket}
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+\usepackage{lmodern}
+\usepackage{tcolorbox}
+\pgfplotsset{compat=1.17}
+\fancypagestyle{mypagestyle}{
+    \pagestyle{fancy}
+    \pagestyle{myheadings}
+}
+
+
+\newcommand{\bb}[1]{\begin{tcolorbox}
+  \textbf{#1}
+\end{tcolorbox}}
+
+\newcommand{\rb}[1]{\begin{tcolorbox}[colframe=red!50!white]
+#1
+\end{tcolorbox}}
+
+\newcommand{\Bb}[1]{\begin{tcolorbox}[colframe=blue!50!white]
+{#1}
+\end{tcolorbox}}
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand{\N}{\mathbb{N}}
+
+\newcommand{\dd}{\dagger}
+
+\newcommand{\A}{a^\dagger}
+
+\makeindex
+\title{QFT Notes - Chapter 2}
+\author{Stavros Klaoudatos}
+\date{29/4/2022}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\listoffigures
+
+Expressions used:
+Stress Energy Tensor
+\begin{equation*}
+    T^\mu_\nu = \frac{\partial \mathcal{L}}{\partial(\partial_\mu \phi)}\partial_\nu \phi - \mathcal{L}\delta^\mu_\nu
+\end{equation*}
+Hamiltonian Density
+\begin{equation*}
+    H = \int T^{00} d^3x = \int \mathcal{H}d^3 x
+\end{equation*}
+
+\section{2.1 The Klein Gordon Field as Harmonic Oscillations}
+
+The simplest type of field is the \textbf{Real Klein-Gordon Field}. We will start with a classical field theory and then quantize it. 
+\bb{\centering{Second Quantization}
+\\
+Reinterpret the Dynamic Variables as operators that obey canonical commutation relations}
+
+We will then solve the theory by \textbf{finding the eigenvalues and eigenstates of the Hamiltonian using the Harmonic Oscillator as an analogy.}
+
+To move from classical to quantum field theory, we do what we do with all dynamical systems: \textbf{We promoted $\phi$ and $\pi$ to operators} and we impose suitable commutation relations.
+
+\begin{equation}
+    [q_i,p_j] = i \delta_{ij}
+\end{equation}
+\begin{equation}
+    [p_i,p_j] = [q_i,q_j]=0
+\end{equation}
+ For a continuous system, the generalization is quite natural. Because $\pi(x)$ is a the momentum \textbf{density}, we get a dirac delta rather than a Kronecker:
+ 
+ \begin{equation}
+     [\phi(x),\pi(y)] = i\delta^{(3)}(x-y)
+ \end{equation}
+ \begin{equation}
+     [\phi(x),\phi(y)] = [\pi(x),\pi(y)] = 0
+ \end{equation}
+ 
+ ((For now $\phi$ and $\pi$ do not depend on time).
+ \\
+ Now it is time for the \textbf{Hamiltonian}. First of all let's write the Klein-Gordon field in Fourier Space:
+ 
+ \begin{equation}
+     \phi(x,t) = \int\frac{d^3 p}{(2\pi)^3} e^{ip\cdot x}\phi(p,t)
+ \end{equation}
+ 
+ (Here we have $\phi^*(p) = -\phi(p)$ so that $\phi(x)$ is real.)
+ \\
+\Bb{ \centering{\textbf{The Klein Gordon Equation becomes}}
+ \\ 
+ 
+ \begin{equation}
+     [\frac{\partial^2 }{\partial t^2} + (\vert p\vert^2 +m^2) ]\phi(p,t) = 0
+ \end{equation}}
+ 
+ This is the same as the equation of motion for a simple harmonic oscillator with frequency $\omega = \sqrt{|p|^2 + m^2}$
+ 
+ SHO is something we know pretty well.
+ \begin{equation}
+     H_{SHO} = \frac{1}{2}p^2 + \frac{1}{2}\omega^2 \phi^2
+ \end{equation}
+
+Now to find the eigenvalues of $H_{SHO}$, we write p and $\phi$ in terms of ladder operators.
+\\
+\begin{equation}
+    \phi = \frac{1}{\sqrt{2\omega}}(a + a^{\dd})
+\end{equation}
+
+\begin{equation}
+    p = -i\sqrt{\frac{\omega}{2}}(a - a^{\dd})
+\end{equation}
+The Hamiltonian can now be written as 
+\begin{equation}
+    H_{SHO}= \omega(a^\dd a + \frac{1}{2})
+\end{equation}
+
+The state $\ket{0}$ is the ground-state with eigenvalue $\frac{1}{2}\omega$.
+\\
+Furthermore, the Commutators $[H_{SHO},a^\dd] = \omega a^\dd$ and $[H_{SHO},a] = -\omega a$
+\\
+From Quantum Mechanics we know that 
+\begin{equation}
+    \ket{n} = (a^\dd)^n\ket{0}\ \ \ with \ \ eigenstate \ \ (n+\frac{1}{2})\omega
+\end{equation}
+We can find the spectrum of the Klein Gordon Hamiltonian with the same trick, but now, each Fourier mode of the field is treated as an independent oscillator with it's own creating and annihilation operators.
+\\
+\begin{equation}
+    \phi(x) = \int \frac{d^3 p }{(2\pi)^3} \frac{1}{\sqrt{2\omega_p}}(a_p e^{ip\cdot x} + \A_p e^{-ip\cdot x})
+\end{equation}
+\begin{equation}
+    \pi(x) = \int \frac{d^3 p }{(2\pi)^3} -i\sqrt{\frac{\omega_p}{2}}(a_p e^{ip\cdot x} - \A_p e^{-ip\cdot x})
+\end{equation}
+
+We will rearrange the above equation as they will be more useful to us in the future.
+
+\begin{equation}
+    \phi(x) = \int \frac{d^3 p }{(2\pi)^3} \frac{1}{\sqrt{2\omega_p}}(a_p  + \A_{-p})e^{ip\cdot x}
+\end{equation}
+\begin{equation}
+    \pi(x) = \int \frac{d^3 p }{(2\pi)^3} -i\sqrt{\frac{\omega_p}{2}}(a_p - \A_{-p})e^{ip\cdot x}
+\end{equation}
+
+The commutation relation now becomes
+\begin{equation}
+    [a_p, \A_{p'}] = i\delta^{(3)}(p-p')
+\end{equation}
+
+
+
+
+Using these we can verify that
+
+\begin{equation}
+    [\phi(x),\pi(x')] = \int \frac{d^3 p d^3 p'}{(2\pi)^6} \frac{-i}{2} \sqrt{\frac{\omega_{p'}}{\omega_p}} ([\A_{-p'},a_{p'}] - [a_p, \A_{-p'}]) e^{i(p\cdot x + p' \cdot x')} = i\delta^{(3)}(x-x')
+\end{equation}
+
+Now, we can express the Hamiltonian in terms of ladder operators.
+\begin{equation}
+    H = \int d^3 x \int \frac{d^3 p\ d^3p'}{(2\pi)^6}e^{i(p+p')\cdot x} \bigg\{  -\frac{ \sqrt{\omega_p \omega_{p'}}}{4} (a_p - \A_{-p})(a_{p'} - \A_{-p'}) + \frac{-p \cdot p' + m^2}{4\sqrt{\omega_p\omega_{p'}}}(a_p + \A_{-p})(a_{p'} + \A_{-p'})              \bigg\} 
+\end{equation}
+\begin{equation}
+    =\int\frac{d^3 p }{(2\pi)^3}\omega_p(\A_p a_p +   \frac{1}{2}[a_p, \A_{p}])
+\end{equation}
+
+To find this, all we do is plug the equations (1,20 to the Hamiltonian Expression:
+
+\begin{equation}
+    H = \int d^3 x \bigg[\frac{1}{2}\pi^2 + \frac{1}{2}(\nabla \phi)^2 +\frac{1}{2}m^2\phi^2 \bigg]
+\end{equation}
+
+
+\begin{equation} \begin{aligned}
+    =\frac{1}{2}\int \frac{d^{3}x\ d^{3}p\ d^{3}q}{(2\pi)^{6}}\Big[ -\frac{\sqrt{\omega_{\vec{p}}\omega_{\vec{q}}}}{2} \Big( a_{\vec{p}}e^{i\vec{p}\cdot{\vec{x}}}
+    -a_{\vec{p}}^{\dagger}e^{-i\vec{p}\cdot{\vec{x}}} \Big) \Big( a_{\vec{q}}e^{i\vec{q}\cdot{\vec{x}}}
+    -a_{\vec{q}}^{\dagger}e^{-i\vec{q}\cdot{\vec{x}}} \Big)\\
+    + \frac{1}{2\sqrt{\omega_{\vec{p}}\omega_{\vec{q}}}} \Big( i\vec{p}a_{\vec{p}}e^{i\vec{p}\cdot{\vec{x}}}-i\vec{p}a_{\vec{p}}^{\dagger}e^{-i\vec{p}\cdot{\vec{x}}} \Big)\cdot{\Big( i\vec{q}a_{\vec{q}}e^{i\vec{q}\cdot{\vec{x}}}-i\vec{q}a_{\vec{q}}^{\dagger}e^{-i\vec{q}\cdot{\vec{x}}}\Big)}\\
+    +\frac{m^{2}}{2\sqrt{\omega_{\vec{p}}\omega_{\vec{q}}}} \Big( a_{\vec{p}}e^{i\vec{p}\cdot{\vec{x}}}+a_{\vec{p}}^{\dagger}e^{-i\vec{p}\cdot{\vec{x}}}\Big)\Big(a_{\vec{q}}e^{i\vec{q}\cdot{\vec{x}}}+a_{\vec{q}}^{\dagger}e^{-i\vec{q}\cdot{\vec{x}}} \Big)\Big]\end{aligned}
+\end{equation}
+
+
+
+
+
+
+
+\begin{equation} \begin{aligned}
+    =\frac{1}{4}\int \frac{d^{3}p\ d^{3}q}{(2\pi)^{3}}\Big[-\sqrt{\omega_{\vec{p}}\omega_{\vec{q}}}\Big(a_{\vec{p}}a_{\vec{q}}\delta(\vec{p}+\vec{q})-a_{\vec{p}}^{\dagger}a_{\vec{q}}\delta(-\vec{p}+\vec{q})-a_{\vec{p}}a_{\vec{q}}^{\dagger}\delta(\vec{p}-\vec{q})+a_{\vec{p}}^{\dagger}a_{\vec{q}}^{\dagger}\delta(-\vec{p}-\vec{q})\Big)\\
+    +\frac{1}{\sqrt{\omega_{\vec{p}}\omega_{\vec{q}}}}\Big(-\vec{p}\cdot{\vec{q}}a_{\vec{p}}a_{\vec{q}}\delta(\vec{p}+\vec{q})+\vec{p}\cdot{\vec{q}}a_{\vec{p}}^{\dagger}a_{\vec{q}}\delta(-\vec{p}+\vec{q})+\vec{p}\cdot{\vec{q}}a_{\vec{p}}a_{\vec{q}}^{\dagger}\delta(\vec{p}
+    -\vec{q})-\vec{p}\cdot{\vec{q}}a_{\vec{p}}^{\dagger}a_{\vec{q}}^{\dagger}\delta(-\vec{p}-\vec{q})\Big)\\
+    +\frac{m^{2}}{\sqrt{\omega_{\vec{p}}\omega_{\vec{q}}}}\Big(a_{\vec{p}}a_{\vec{q}}\delta(\vec{p}+\vec{q})+a_{\vec{p}}^{\dagger}a_{\vec{q}}\delta(-\vec{p}+\vec{q})
+    +a_{\vec{p}}a_{\vec{q}}^{\dagger}\delta(\vec{p}-\vec{q})+a_{\vec{p}}^{\dagger}a_{\vec{q}}^{\dagger}\delta(-\vec{p}-\vec{q})\Big)\Big]\end{aligned}
+\end{equation}
+
+
+
+\begin{equation} \begin{aligned}
+    =\frac{1}{4}\int \frac{d^{3}p}{(2\pi)^{3}}\Big[- \omega_{\vec{p}} a_{\vec{p}} a_{-\vec{p}} + \omega_{\vec{p}} a_{\vec{p}}^{\dagger} a_{\vec{p}} + \omega_{\vec{p}} a_{\vec{p}} a_{\vec{p}}^{\dagger} - \omega_{\vec{p}} a_{\vec{p}}^{\dagger} a_{-\vec{p}}^{\dagger}\\
+    + \frac{1}{\omega_{\vec{p}}} \vec{p}^{2} a_{\vec{p}} a_{-\vec{p}} + \frac{1}{\omega_{\vec{p}}} \vec{p}^{2} a_{\vec{p}}^{\dagger} a_{\vec{p}} + \frac{1}{\omega_{\vec{p}}} \vec{p}^{2} a_{\vec{p}} a_{\vec{p}}^{\dagger} + \frac{1}{\omega_{\vec{p}}} \vec{p}^{2} a_{\vec{p}}^{\dagger} a_{-\vec{p}}^{\dagger}\\
+    + \frac{m^{2}}{\omega_{\vec{p}}} a_{\vec{p}} a_{-\vec{p}} + \frac{m^{2}}{\omega_{\vec{p}}} a_{\vec{p}}^{\dagger} a_{\vec{p}} + \frac{m^{2}}{\omega_{\vec{p}}} a_{\vec{p}} a_{\vec{p}}^{\dagger} + \frac{m^{2}}{\omega_{\vec{p}}} a_{\vec{p}}^{\dagger} a_{-\vec{p}}^{\dagger}\Big]\end{aligned}
+\end{equation}
+
+
+\begin{equation} \begin{aligned}
+    =\frac{1}{4}\int \frac{d^{3}p}{(2\pi)^{3}}\frac{1}{\omega_{\vec{p}}}\Big[(-\omega_{\vec{p}}^{2}+\vec{p}^{2}+m^{2})a_{\vec{p}}a_{-\vec{p}}+(-\omega_{\vec{p}}^{2}+\vec{p}^{2}+m^{2})a_{\vec{p}}^{\dagger}a_{-\vec{p}}^{\dagger}+(\omega_{\vec{p}}^{2}+\vec{p}^{2}+m^{2})a_{\vec{p}}a_{\vec{p}}^{\dagger}+(\omega_{\vec{p}}^{2}+\vec{p}^{2}+m^{2})a_{\vec{p}}^{\dagger}a_{\vec{p}}\Big]\end{aligned}
+\end{equation}
+
+
+
+\begin{equation}
+    =\frac{1}{4}\int \frac{d^{3}p}{(2\pi)^{3}}\frac{1}{\omega_{\vec{p}}}\Big[(-\omega_{\vec{p}}^{2}+\vec{p}^{2}+m^{2})(a_{\vec{p}}a_{-\vec{p}}+a_{\vec{p}}^{\dagger}a_{-\vec{p}}^{\dagger})+(\omega_{\vec{p}}^{2}+\vec{p}^{2}+m^{2})(a_{\vec{p}}a_{\vec{p}}^{\dagger}+a_{\vec{p}}^{\dagger}a_{\vec{p}})\Big]
+\end{equation}
+
+
+
+
+\begin{equation}
+    =\frac{1}{2} \int \frac{d^{3}p}{(2\pi)^{3}}\omega_{\vec{p}}[a_{\vec{p}}a_{\vec{p}}^{\dagger}+a_{\vec{p}}^{\dagger}a_{\vec{p}}]
+\end{equation}
+
+
+
+
+\begin{equation}
+    =\int \frac{d^{3}p}{(2\pi)^{3}}\omega_{\vec{p}}[a_{\vec{p}}^{\dagger}a_{\vec{p}}+\frac{1}{2}[a_{\vec{p}},a_{\vec{p}}^{\dagger}]]
+\end{equation}
+
+
+The term on the far right is proportional to $\delta(0)$, an infinite c-number. It is the sum over all modes of the zero-point energies $\frac{\omega_p}{2}$, so its presence is expected. The infinite energy shift cannot be detected experimentally, since experiments measure only energy differences from the ground state of H. Therefore, we will simply ignore this energy shift for now. \textit{(look at epilogue)}
+
+\begin{equation}
+    =\int \frac{d^{3}p}{(2\pi)^{3}}\omega_{\vec{p}}[a_{\vec{p}}^{\dagger}a_{\vec{p}}+\frac{1}{2}(2\pi)^{3}\delta^{(3)}(0)]
+\end{equation}
+
+
+
+Using the expression for the Hamiltonian in terms of $a_p$ and $\A_p$ it is easy to evaluate the commutators:
+\begin{equation}
+    [H,\A_p] = \omega_p \A_p\ \ \ [H,a_p] = -\omega_p a_p
+\end{equation}
+
+We can now write the spectrum of theory, just as for the harmonic oscillator.
+\\
+The ground sate $\ket{0}$ is defined by the relation $a_p\ket{0} = \ket{0}\ \forall p$. This is also called the \textbf{vacuum state}.\\
+All other energy eigenstates can be built by the creation operators acting on the vacuum.\\
+In general, the state $\A_{p_1}\A_{p_2}\A_{p_3}...\ket{0}$ is an eigenstate of H with energy $\sum\limits_j \omega_{p_j}$.\newline\newline
+
+
+Having found the spectrum of the Hamiltonian we can now interpret its eigenstates.
+
+We can write the total momentum operator with the use of the following equation.
+\begin{equation}
+    P^i = \int T^{0i}d^3x = -\int \pi \partial_i\phi d^3x
+\end{equation}
+
+Carrying out the operators we get:
+\\
+\begin{equation}
+    \textbf{P} = -\int d^3x \pi(\textbf{x})\nabla\phi(x) = \int \frac{d^3p}{(2\pi)^3} \textbf{p}\A_\textbf{p} a_\textbf{p}
+\end{equation}
+
+
+
+That mean that the operator $\A_p$ creates momentum $p$ and energy\\ $\omega_p = \sqrt{|p|^2 +m^2}$.
+It is natural to call these excitation \textbf{particles}, since they are discrete entities that have the proper relativistic energy-momentum relation.
+\\
+\textbf{From now own we will refer to $\omega_p$ as $E_p$ or simply E, as it really is the energy of the particle.}
+
+
+
+We choose to normalize the vacuum state so that $\braket{0|0} = 1$. The one-particles states $\ket{p} \propto \A_p\ket{0}$ will also appear quite often, and it is worthwhile to adopt a convention for their normalization. The simplest one is $\braket{p|q} = (2\pi)^3 \delta^{(3)}(p-q)$. This is not Lorentz invariant, which we can demonstrate by considering the effect of a boost in the 3-direction.\footnote{Peskin and Schroeder pages 22-24}
+
+\newpage
+
+\section{2.2 The Klein Gordon Field in Space-Time}
+
+
+In this section, we will switch from the Schroedinger picture to the Heisenberg.
+Here, we need to introduce time-dependency in our operators.
+\\
+\begin{equation}
+    \phi(x) = \phi(x,t) = e^{iHt}\phi(x)e^{-iHt}
+\end{equation} and similarly for $\pi(x) = \pi(x,t)$.
+\\
+The Heisenberg equation of motion allows to compute the time dependence of $\phi \ and\ \pi$.
+
+\begin{equation}
+    i\frac{\partial}{\partial t}\mathcal{O} = [\mathcal{O},H]
+\end{equation}
+
+\begin{equation}
+    i\frac{\partial}{\partial t}\phi(x,t) =[\phi(x,t),\int d^3x' \{ \frac{1}{2} \pi^2(x',t) + \frac{1}{2}(\nabla\phi(x,t))^2 + \frac{1}{2}m^2\phi^2(x',t)\}]
+\end{equation}
+\begin{equation*}
+    = \int d^3x'(i\delta^{(3)}(x-x')\pi(x',t))=i\pi(x,t)
+\end{equation*}
+
+
+
+\begin{equation}
+    i\frac{\partial}{\partial t}\pi(x,t) =[\pi(x,t),\int d^3x' \{ \frac{1}{2} \pi^2(x',t) + \frac{1}{2}(\phi(x,t))(-\nabla^2 +m^2)\phi(x',t)\}]
+\end{equation}
+\begin{equation*}
+    = \int d^3x'(-i\delta^{(3)}(x-x')(-\nabla^2 +m^2)\phi(x',t)=i(-\nabla^2 +m^2)\phi(x,t)
+\end{equation*}
+
+Combining the two results we get the \textbf{Klein Gordon Equation}
+\begin{equation}
+    \frac{\partial^2}{\partial t^2}\phi = (\nabla^2 - m^2)\phi
+\end{equation}
+
+
+It is easier to understand the time dependence of $\phi\ and\ \pi$ by writing them both in terms of creation and annihilation operators.
+\\
+
+Note that for any n,
+\begin{equation*}
+    Ha_p = a_p(H-E_p)\ \ and\  \ H^n a_p = a_p(H-E_p)^n
+\end{equation*}
+
+\textit{(similarly for $\A_p$, but instead of - we get +)}
+
+
+
+
+
+
+
+
+
+\end{document}
