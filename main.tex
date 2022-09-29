@@ -51,7 +51,7 @@
 \makeindex
 \title{QFT Notes - Chapter 2}
 \author{Stavros Klaoudatos}
-\date{29/4/2022}
+\date{ }
 
 \begin{document}
 \maketitle
@@ -337,12 +337,21 @@ Note that for any n,
 
 \textit{(similarly for $\A_p$, but instead of - we get +)}
 
+This means we have now derived the identities:
+$$e^{iHt}a_{\textbf{p}}e^{-iHt} = a_{\textbf{p}}e^{-iE_{\textbf{p}}t}$$
 
+$$e^{iHt}a^{\dagger}_{\textbf{p}}e^{-iHt} = a^{\dagger}_{\textbf{p}}e^{iE_{\textbf{p}}t}$$
 
+We can now use this to find the Heisenberg Operator $\phi(x,t)$, which cis defined in the equation 32.
+\\
 
-
-
-
+\begin{equation}
+    \phi(x,t) = \int \frac{d^3p}{(2\pi)^3} \frac{1}{\sqrt{E_{\textbf{p}}}} \big[a_{\textbf{p}}e^{-ipx} + a^{\dagger}_{\textbf{p}}e^{ipx}  \big] \Big\vert_{p^0 = E_{\textbf{p}}}
+\end{equation}
+and obviously
+\begin{equation}
+    \pi(x,t) = \partial_t \phi(x,t)
+\end{equation}
 
 
 \end{document}
